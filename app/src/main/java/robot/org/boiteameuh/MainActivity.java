@@ -250,6 +250,9 @@ public class MainActivity extends AppCompatActivity {
         acc1=(Button)findViewById(R.id.boutonAccord1);
 
 
+
+
+
         minmaj.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
