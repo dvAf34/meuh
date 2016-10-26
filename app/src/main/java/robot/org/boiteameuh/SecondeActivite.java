@@ -7,8 +7,10 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
 import android.widget.Button;
 import android.view.View;
@@ -34,8 +36,6 @@ import java.util.TimerTask;
 public class SecondeActivite extends Activity implements SensorEventListener{
 
     private SensorManager sensorManager;
-    private boolean color = false;
-    private View view;
     private long lastUpdate;
 
 
@@ -51,8 +51,7 @@ public class SecondeActivite extends Activity implements SensorEventListener{
     Button acc2;
     Button acc3;
     Button acc4;
-    Timer timer;
-    int i =0;
+
 
 
 
@@ -64,14 +63,6 @@ public class SecondeActivite extends Activity implements SensorEventListener{
 
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         lastUpdate = System.currentTimeMillis();
-
-
-
-
-
-
-
-
 
        acc1 = (Button) findViewById(R.id.boutonAccord1);
         acc2 = (Button) findViewById(R.id.boutonAccord2);
@@ -142,6 +133,7 @@ public class SecondeActivite extends Activity implements SensorEventListener{
 
 
 
+
       acc1.setOnClickListener(new View.OnClickListener() {
             @Override
 
@@ -195,6 +187,7 @@ public class SecondeActivite extends Activity implements SensorEventListener{
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void onSensorChanged(SensorEvent event) {
         if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
@@ -202,6 +195,7 @@ public class SecondeActivite extends Activity implements SensorEventListener{
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     private void getAccelerometer(SensorEvent event) {
         float[] values = event.values;
         // Movement
@@ -213,29 +207,31 @@ public class SecondeActivite extends Activity implements SensorEventListener{
                 / (SensorManager.GRAVITY_EARTH * SensorManager.GRAVITY_EARTH);
 
         long actualTime = event.timestamp;
-        if (accelationSquareRoot >= 5) //
+        if (accelationSquareRoot >= 2) //
         {
             if (actualTime - lastUpdate < 200) {
                 return;
            }
             lastUpdate = actualTime;
 
+            //mp = MediaPlayer.create(SecondeActivite.this, playlist.get(0));
+            ArrayList<MediaPlayer> mPlayerList = new ArrayList<MediaPlayer>();
+            mPlayerList.add(MediaPlayer.create(SecondeActivite.this, playlist.get(0)));
+            mPlayerList.add(MediaPlayer.create(SecondeActivite.this, playlist.get(1)));
+            mPlayerList.add(MediaPlayer.create(SecondeActivite.this, playlist.get(2)));
+            mPlayerList.add(MediaPlayer.create(SecondeActivite.this, playlist.get(3)));
 
-for(int i =0; i<playlist.size();i++)
+
+
+for(int i =0; i<mPlayerList.size()-1;i++)
 {
 
-         mp = MediaPlayer.create(SecondeActivite.this,playlist.get(i));
+    mPlayerList.get(i).setNextMediaPlayer(mPlayerList.get(i+1));
 
-            mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                @Override
-                public void onCompletion(MediaPlayer mp) {
-                    mp.stop();
-                }
-            });
 
-            mp.start();
+
 }
-
+            mPlayerList.get(0).start();
 
 
 
