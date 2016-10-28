@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fond2"
+     >
 
 
     <Button
-        android:layout_width="200dp"
-        android:layout_height="90dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:id="@+id/boutonAccord4"
         android:textColor="#F5FFFF"
-        android:backgroundTint="#3F5E8C"
-        android:background="@drawable/border"
+        android:textSize="10pt"
+        android:background="@drawable/ic_bt4"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -19,12 +22,12 @@
         android:layout_marginBottom="12dp" />
 
     <Button
-        android:layout_width="200dp"
-        android:layout_height="90dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:id="@+id/boutonAccord3"
         android:textColor="#F5FFFF"
-        android:backgroundTint="#3F5E8C"
-        android:background="@drawable/border"
+        android:textSize="10pt"
+        android:background="@drawable/ic_bt3"
         android:layout_above="@+id/boutonAccord4"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
@@ -33,30 +36,98 @@
         android:layout_marginBottom="63dp" />
 
     <Button
-        android:layout_width="200dp"
-        android:layout_height="90dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:id="@+id/boutonAccord2"
         android:textColor="#F5FFFF"
-        android:backgroundTint="#3F5E8C"
-        android:background="@drawable/border"
+        android:textSize="10pt"
+        android:background="@drawable/ic_bt2"
         android:layout_below="@+id/boutonAccord1"
         android:layout_alignLeft="@+id/boutonAccord4"
         android:layout_alignStart="@+id/boutonAccord4"
         android:layout_marginTop="32dp" />
 
     <Button
-        android:layout_width="200dp"
-        android:layout_height="90dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:id="@+id/boutonAccord1"
-        android:background="@drawable/border"
+        android:background="@drawable/bt1"
         android:textColor="#F5FFFF"
-        android:backgroundTint="#3F5E8C"
+        android:textSize="10pt"
 
 
         android:layout_alignParentTop="true"
         android:layout_alignLeft="@+id/boutonAccord3"
         android:layout_alignStart="@+id/boutonAccord3"
         android:layout_marginTop="22dp" />
+
+    <ImageView
+
+        android:background="@drawable/paysage"
+        android:id="@+id/landscape"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+
+        android:text="acc4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#F5FFFF"
+        android:textSize="10pt"
+        android:id="@+id/TextAccord4"
+
+
+        android:layout_alignBaseline="@+id/boutonAccord4"
+        android:layout_alignBottom="@+id/boutonAccord4"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+
+
+        android:text="acc1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#F5FFFF"
+        android:textSize="10pt"
+        android:id="@+id/TextAccord1"
+
+
+        android:layout_alignBaseline="@+id/boutonAccord1"
+        android:layout_alignBottom="@+id/boutonAccord1"
+        android:layout_alignLeft="@+id/TextAccord3"
+        android:layout_alignStart="@+id/TextAccord3" />
+
+    <TextView
+
+        android:text="acc2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#F5FFFF"
+        android:textSize="10pt"
+        android:id="@+id/TextAccord2"
+
+
+        android:layout_alignTop="@+id/boutonAccord2"
+        android:layout_toRightOf="@+id/boutonAccord2"
+        android:layout_toEndOf="@+id/boutonAccord2" />
+
+    <TextView
+
+        android:text="acc3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#F5FFFF"
+        android:textSize="10pt"
+        android:id="@+id/TextAccord3"
+
+
+        android:layout_alignBottom="@+id/boutonAccord2"
+        android:layout_toRightOf="@+id/TextAccord4"
+        android:layout_toEndOf="@+id/TextAccord4" />
 
 
 </RelativeLayout>

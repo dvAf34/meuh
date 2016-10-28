@@ -11,20 +11,21 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/fond"
     tools:context="robot.org.boiteameuh.MainActivity">
 
     <Button
      android:layout_width="100dp"
      android:layout_height="50dp"
      android:id="@+id/boutonAccords"
-     android:text="Accords"
+     android:text="Progression"
         android:background="@drawable/border"
         android:layout_alignParentTop="true"
         android:layout_alignLeft="@+id/boutonTonalité"
         android:layout_alignStart="@+id/boutonTonalité"
         android:layout_marginTop="25dp"
         style="@style/Widget.AppCompat.Button.Colored"
-        android:backgroundTint="#3F5E8C"
+        android:backgroundTint="@color/colorbleu"
         android:clickable="true"/>
 
     <Button
@@ -32,7 +33,7 @@
         android:layout_height="50dp"
         android:id="@+id/boutonTonalité"
         android:text="Tonalité"
-        android:backgroundTint="#3F5E8C"
+        android:backgroundTint="@color/colorbleu"
         android:background="@drawable/border"
         android:textColor="#F5FFFF"
         android:clickable="true"
@@ -45,18 +46,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <ImageButton
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@drawable/lecture"
-        android:background="@drawable/boutonrond"
-        android:id="@+id/lecture"
-        android:onClick="test"
-        android:layout_marginBottom="30dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-      />
-
     <EditText
         android:id="@+id/texteAccords"
         android:background="@drawable/editvue1"
@@ -64,20 +53,11 @@
         android:layout_height="40dp"
         android:editable="false"
         android:gravity="center"
-
+        android:backgroundTint="@color/colorblanc"
         android:layout_alignTop="@+id/boutonAccords"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <Switch
-        android:text="Mode mineur"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/switch2"
-        android:layout_below="@+id/boutonTonalité"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="70dp"
-        />
+        android:layout_alignParentEnd="true"
+        tools:background="@color/colorblanc" />
 
     <EditText
         android:id="@+id/texteTonalité"
@@ -85,6 +65,7 @@
         android:layout_width="200dp"
         android:layout_height="40dp"
         android:gravity="center"
+        android:backgroundTint="@color/colorblanc"
         android:editable="false"
         android:layout_alignTop="@+id/boutonTonalité"
         android:layout_alignParentRight="true"
@@ -92,6 +73,9 @@
 
     <TextView
         android:text="Mode majeur"
+        android:textStyle="bold"
+        android:textColor="@color/colorblanc"
+        android:textSize="9pt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/modemajeur"
@@ -99,5 +83,30 @@
         android:layout_alignBottom="@+id/switch2"
         android:layout_toRightOf="@+id/switch2"
         android:layout_toEndOf="@+id/switch2" />
+
+
+
+    <ImageButton
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@drawable/music"
+        android:id="@+id/lecture"
+        android:onClick="test"
+        android:layout_below="@+id/modemajeur"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="41dp" />
+
+    <Switch
+        android:text="Mode mineur"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/switch2"
+        android:textColor="@color/colorblanc"
+        android:textStyle="bold"
+        android:textSize="9pt"
+        android:layout_marginTop="84dp"
+        android:layout_below="@+id/boutonTonalité"
+        android:layout_alignLeft="@+id/boutonTonalité"
+        android:layout_alignStart="@+id/boutonTonalité" />
 
 </RelativeLayout>

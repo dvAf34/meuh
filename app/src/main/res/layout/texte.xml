@@ -12,6 +12,7 @@ android:layout_height="match_parent">
         android:background="@drawable/border"
         android:gravity="center"
         android:text="nom"
+        android:backgroundTint="@color/colorblanc"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 

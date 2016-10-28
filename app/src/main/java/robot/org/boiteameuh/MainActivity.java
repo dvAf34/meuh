@@ -1,6 +1,8 @@
 package robot.org.boiteameuh;
 
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -155,42 +157,54 @@ public class MainActivity extends AppCompatActivity {
 
         lecture.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                if (minmaj.isChecked()){
-                    choix = (Chord) tonalite.get(tonechoice);
-                    tab =remplirtab(choix);
+                    if ((tonechoice == 0) || (progressionchoice == 0)) {
+                        Context context = getApplicationContext();
+                        CharSequence text = "Noooooooon!";
+                        int duration = Toast.LENGTH_SHORT;
 
-                    choixP = (Progression) progression.get(progressionchoice);
+                        Toast toast = Toast.makeText(context, text, duration);
+                        toast.show();
+                    } else
+                    //((choix!=null)||(choixP!=null))
+                    {
 
-                    tabfinal.add(tab.get(choixP.getPremier()-1));
-                    tabfinal.add(tab.get(choixP.getDeuxieme()-1));
-                    tabfinal.add(tab.get(choixP.getTroisieme()-1));
-                    tabfinal.add(tab.get(choixP.getQuatrieme()-1));
+                        if (minmaj.isChecked()) {
+                            choix = (Chord) tonalite.get(tonechoice);
+                            tab = remplirtab(choix);
 
-                    intenmajeur.putExtra("String1",tabfinal.get(0).toString());
-                    intenmajeur.putExtra("String2",tabfinal.get(1).toString());
-                    intenmajeur.putExtra("String3",tabfinal.get(2).toString());
-                    intenmajeur.putExtra("String4",tabfinal.get(3).toString());
+                            choixP = (Progression) progression.get(progressionchoice);
+
+                            tabfinal.add(tab.get(choixP.getPremier() - 1));
+                            tabfinal.add(tab.get(choixP.getDeuxieme() - 1));
+                            tabfinal.add(tab.get(choixP.getTroisieme() - 1));
+                            tabfinal.add(tab.get(choixP.getQuatrieme() - 1));
+
+                            intenmajeur.putExtra("String1", tabfinal.get(0).toString());
+                            intenmajeur.putExtra("String2", tabfinal.get(1).toString());
+                            intenmajeur.putExtra("String3", tabfinal.get(2).toString());
+                            intenmajeur.putExtra("String4", tabfinal.get(3).toString());
+                        } else {
+                            choix = (Chord) tonalite.get(tonechoice + 12);
+                            tab = remplirtab(choix);
+
+                            choixP = (Progression) progression.get(progressionchoice);
+
+                            tabfinal.add(tab.get(choixP.getPremier() - 1));
+                            tabfinal.add(tab.get(choixP.getDeuxieme() - 1));
+                            tabfinal.add(tab.get(choixP.getTroisieme() - 1));
+                            tabfinal.add(tab.get(choixP.getQuatrieme() - 1));
+
+                            intenmajeur.putExtra("String1", tabfinal.get(0).toString());
+                            intenmajeur.putExtra("String2", tabfinal.get(1).toString());
+                            intenmajeur.putExtra("String3", tabfinal.get(2).toString());
+                            intenmajeur.putExtra("String4", tabfinal.get(3).toString());
+                        }
+                        startActivity(intenmajeur);
+                        onStop();
+                    }
                 }
-                else {
-                    choix = (Chord) tonalite.get(tonechoice+12);
-                    tab =remplirtab(choix);
 
-                    choixP = (Progression) progression.get(progressionchoice);
 
-                    tabfinal.add(tab.get(choixP.getPremier()-1));
-                    tabfinal.add(tab.get(choixP.getDeuxieme()-1));
-                    tabfinal.add(tab.get(choixP.getTroisieme()-1));
-                    tabfinal.add(tab.get(choixP.getQuatrieme()-1));
-
-                    intenmajeur.putExtra("String1",tabfinal.get(0).toString());
-                    intenmajeur.putExtra("String2",tabfinal.get(1).toString());
-                    intenmajeur.putExtra("String3",tabfinal.get(2).toString());
-                    intenmajeur.putExtra("String4",tabfinal.get(3).toString());
-                }
-                startActivity(intenmajeur);
-                onStop();
-
-            }
         });
     }
 
@@ -247,4 +261,6 @@ public class MainActivity extends AppCompatActivity {
         tab.add(choix.getVII().toString());
         return tab;
     }
+
+
 }
