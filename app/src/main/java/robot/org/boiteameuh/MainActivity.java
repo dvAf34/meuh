@@ -28,6 +28,10 @@ import java.util.ArrayList;
 import java.util.List;
 import android.content.Intent;
 public class MainActivity extends AppCompatActivity {
+
+    String prog="prog";
+    String tona="tona";
+
     EditText accord, tonalite2;
     LayoutInflater inflater1,inflater2;
     View view1, view2;
@@ -72,6 +76,20 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if(savedInstanceState !=null){
+
+            tonechoice=savedInstanceState.getInt(tona);
+            progressionchoice=savedInstanceState.getInt(prog);
+
+
+        }
+    else {
+        // Probably initialize members with default values for a new instance
+        tonechoice=0;
+        progressionchoice=0;
+
+    }
         setContentView(R.layout.activity_main);
 
         inflater1=LayoutInflater.from(MainActivity.this);
@@ -159,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                     if ((tonechoice == 0) || (progressionchoice == 0)) {
                         Context context = getApplicationContext();
-                        CharSequence text = "Noooooooon!";
+                        CharSequence text = "Veuillez choisir une progression et une tonalité";
                         int duration = Toast.LENGTH_SHORT;
 
                         Toast toast = Toast.makeText(context, text, duration);
@@ -260,6 +278,14 @@ public class MainActivity extends AppCompatActivity {
         tab.add(choix.getVI().toString());
         tab.add(choix.getVII().toString());
         return tab;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putInt(prog,progressionchoice);
+        savedInstanceState.putInt(tona,tonechoice);
+        // Always call the superclass so it can save the view hierarchy state
+        super.onSaveInstanceState(savedInstanceState);
     }
 
 

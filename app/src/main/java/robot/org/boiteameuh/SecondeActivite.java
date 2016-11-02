@@ -14,6 +14,7 @@ import android.os.Handler;
 import android.support.annotation.RequiresApi;
 import android.util.Log;
 import android.view.OrientationEventListener;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.view.View;
 import android.content.Intent;
@@ -39,8 +40,15 @@ import static android.view.Surface.ROTATION_270;
 
 public class SecondeActivite extends Activity {
 
+    Bundle newBundy = new Bundle();
+
     private SensorManager mSensorManager1;
     private ShakeEventListener mSensorListener;
+
+    String nomacc1="nomacc1";
+    String nomacc2="nomacc2";
+    String nomacc3="nomacc3";
+    String nomacc4="nomacc4";
 
 
 
@@ -58,14 +66,17 @@ public class SecondeActivite extends Activity {
     private TextView tacc3;
     private TextView tacc4;
     private ArrayList<MediaPlayer> mPlayerList = new ArrayList<MediaPlayer>();
+    private ArrayList<MediaPlayer> mPlayerListSec = new ArrayList<MediaPlayer>();
+
+
+
 
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.secondeactivite);
 
-
+       setContentView(R.layout.secondeactivite);
 
 
 
@@ -78,17 +89,7 @@ public class SecondeActivite extends Activity {
         acc3 = (Button) findViewById(R.id.boutonAccord3);
         acc4 = (Button) findViewById(R.id.boutonAccord4);
 
-         tacc1=(TextView)findViewById((R.id.TextAccord1));
-       tacc2=(TextView)findViewById((R.id.TextAccord2));
-         tacc3=(TextView)findViewById((R.id.TextAccord3));
-         tacc4=(TextView)findViewById((R.id.TextAccord4));
 
-        //ajout des noms des notes mises dans le putExtra de l'activité précédente, dans les boutons
-
-        tacc1.setText(getIntent().getStringExtra("String1"));
-        tacc2.setText(getIntent().getStringExtra("String2"));
-        tacc3.setText(getIntent().getStringExtra("String3"));
-        tacc4.setText(getIntent().getStringExtra("String4"));
 
 //création d'un Hastable qui contient le nom de la note et le fichier mp3 qui lui est associé
       ht=new Hashtable<>();
@@ -132,12 +133,18 @@ public class SecondeActivite extends Activity {
         ht.put("gxm",R.raw.gxm);
         ht.put("abis",R.raw.abis);
 
+
         //remplissage du tableau mPlayerList qui contient 4 MediaPlayer qui lise les 4 fichiers mp3 associés aux boutons
 
-        mPlayerList.add(MediaPlayer.create(SecondeActivite.this, ht.get(tacc1.getText().toString())));
-        mPlayerList.add(MediaPlayer.create(SecondeActivite.this, ht.get(tacc2.getText().toString())));
-        mPlayerList.add(MediaPlayer.create(SecondeActivite.this, ht.get(tacc3.getText().toString())));
-        mPlayerList.add(MediaPlayer.create(SecondeActivite.this, ht.get(tacc4.getText().toString())));
+        mPlayerList.add(MediaPlayer.create(SecondeActivite.this, ht.get(getIntent().getStringExtra("String1"))));
+        mPlayerList.add(MediaPlayer.create(SecondeActivite.this, ht.get(getIntent().getStringExtra("String2"))));
+        mPlayerList.add(MediaPlayer.create(SecondeActivite.this, ht.get(getIntent().getStringExtra("String3"))));
+        mPlayerList.add(MediaPlayer.create(SecondeActivite.this, ht.get(getIntent().getStringExtra("String4"))));
+
+        mPlayerListSec.add(MediaPlayer.create(SecondeActivite.this, ht.get(getIntent().getStringExtra("String1"))));
+        mPlayerListSec.add(MediaPlayer.create(SecondeActivite.this, ht.get(getIntent().getStringExtra("String2"))));
+        mPlayerListSec.add(MediaPlayer.create(SecondeActivite.this, ht.get(getIntent().getStringExtra("String3"))));
+        mPlayerListSec.add(MediaPlayer.create(SecondeActivite.this, ht.get(getIntent().getStringExtra("String4"))));
 
 
         //ajout des Listener sur chaque bouton pour que chaqu'un joue le fichier mp3 qui lui est associé quand on appui dessus.
@@ -146,7 +153,7 @@ public class SecondeActivite extends Activity {
 
             public void onClick(View v) {
 
-                musiqueBouton(tacc1.getText().toString());
+                musiqueBouton(getIntent().getStringExtra("String1"));
 
             }
         });
@@ -156,7 +163,7 @@ public class SecondeActivite extends Activity {
 
             public void onClick(View v) {
 
-                musiqueBouton(tacc2.getText().toString());
+                musiqueBouton(getIntent().getStringExtra("String2"));
 
             }
         });
@@ -165,7 +172,7 @@ public class SecondeActivite extends Activity {
 
             public void onClick(View v) {
 
-                musiqueBouton(tacc3.getText().toString());
+                musiqueBouton(getIntent().getStringExtra("String3"));
 
             }
         });
@@ -173,7 +180,7 @@ public class SecondeActivite extends Activity {
             @Override
 
             public void onClick(View v) {
-                musiqueBouton(tacc4.getText().toString());
+                musiqueBouton(getIntent().getStringExtra("String4"));
             }
         });
 
@@ -213,18 +220,13 @@ public class SecondeActivite extends Activity {
 
         });
 
-
-
-
-
-
         }
 
 
 
     public void handleShakeEvent(int count)
     {
-        mPlayerList.get(count).start();
+        mPlayerListSec.get(count).start();
     }
 
 
@@ -243,7 +245,7 @@ public class SecondeActivite extends Activity {
     protected void onPause() {
         mSensorManager1.unregisterListener(mSensorListener);
         super.onPause();
-        //mOrientation.stopListening();
+
     }
     @Override
     protected void onStop() {
@@ -265,28 +267,57 @@ public class SecondeActivite extends Activity {
 
 
     }
+
+
+
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
 
         // Checks the orientation of the screen for landscape and portrait
         if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            for(int i =0; i<mPlayerList.size()-1;i++)
-            {
 
-                mPlayerList.get(i).setNextMediaPlayer(mPlayerList.get(i+1));
+            onSaveInstanceState(newBundy);
 
+
+            for (int i = 0; i < mPlayerList.size() - 1; i++) {
+
+                mPlayerList.get(i).setNextMediaPlayer(mPlayerList.get(i + 1));
 
 
             }
             mPlayerList.get(0).start();
 
-        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
-            mPlayerList.get(0).stop();
+
+
+      } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
+
+
+            onSaveInstanceState(newBundy);
+            mPlayerList.clear();
+            mPlayerList.add(MediaPlayer.create(SecondeActivite.this, ht.get(getIntent().getStringExtra("String1"))));
+            mPlayerList.add(MediaPlayer.create(SecondeActivite.this, ht.get(getIntent().getStringExtra("String2"))));
+            mPlayerList.add(MediaPlayer.create(SecondeActivite.this, ht.get(getIntent().getStringExtra("String3"))));
+            mPlayerList.add(MediaPlayer.create(SecondeActivite.this, ht.get(getIntent().getStringExtra("String4"))));
+
+
+
+      }
         }
+
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBundle("newBundy", newBundy);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        savedInstanceState.getBundle("newBundy");
     }
 
 
+    }
 
-
-}
